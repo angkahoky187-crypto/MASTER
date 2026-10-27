@@ -1,0 +1,4 @@
+UNGGAH KE: repo MASTER di akun angkahoky187-crypto (timpa yang lama)
+index.html = blog (beranda utama, satu klik langsung masuk)
+toko.html, wb-config.js, musik.mp3
+Menu DATA butuh data.html (kalau punya, unggah juga).
