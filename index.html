@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script>(function(){var w=null;try{w=localStorage.getItem('wb_web');}catch(e){}if(w!=='0'&&Math.min(screen.width,screen.height)<900)document.querySelector('meta[name=viewport]').setAttribute('content','width=1100');})();</script>
+<title>💫WB.PREDICTION💫</title>
+<meta name="description" content="WB.PREDICTION - Semua bisa jadi master. Aplikasi Scen Angka otomatis.">
+<style>
+html,body{height:100%;margin:0;background:#000;overflow:hidden}
+#fr{position:fixed;inset:0;width:100%;height:100%;border:0;background:#000}
+#ld{position:fixed;inset:0;display:grid;place-items:center;background:#000;color:#fff;font:15px/1.6 Arial,system-ui,sans-serif;text-align:center;z-index:1;transition:opacity .4s}
+#ld.off{opacity:0;pointer-events:none}
+#ld h1{margin:0 0 6px;font-size:clamp(22px,6vw,32px);letter-spacing:.04em}
+#ld p{margin:4px 0;color:#d6ffd9}
+#ld a{display:inline-block;margin-top:14px;padding:10px 22px;border-radius:99px;background:#eca808;color:#000;font-weight:800;text-decoration:none}
+</style>
+</head>
+<body>
+<div id="ld"><div><h1>💫WB.PREDICTION💫</h1><p>Membuka blog…</p><a id="go" href="#">Buka langsung</a></div></div>
+<iframe id="fr" title="WB.PREDICTION" allow="clipboard-write; autoplay" referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+<!-- ===== MUSIK LATAR (mp3, tanpa iklan) — diputar di halaman pintu ini, blog di dalam bingkai tidak memutar sendiri ===== -->
+<button id="musBtnM" aria-label="Musik" style="display:none;position:fixed;right:14px;bottom:14px;z-index:99998;width:44px;height:44px;border:0;border-radius:50%;background:#19511e;color:#fff;font-size:20px;box-shadow:0 3px 10px rgba(0,0,0,.5)">&#128263;</button>
+<script>
+(function(){
+  /* ALAMAT BLOG di situs Alif Avif (blog + data + toko + admin ada di sana). Ganti di sini bila alamatnya beda. */
+  var BLOG_URL='https://alifavif-cmd.github.io/-WONGBAGUS-PREDICTION-/blog.html';
+
+  var fr=document.getElementById('fr'), ld=document.getElementById('ld'), go=document.getElementById('go');
+  var tujuan=BLOG_URL+(location.search||'')+(location.hash||'');
+  fr.src=tujuan; go.href=tujuan;
+  fr.addEventListener('load',function(){ ld.classList.add('off'); });
+  setTimeout(function(){ ld.classList.add('off'); },6000);
+  /* link berbagi dengan #id: kalau hash berubah, bingkai ikut */
+  window.addEventListener('hashchange',function(){ fr.src=BLOG_URL+(location.search||'')+(location.hash||''); });
+
+  /* ---- musik ---- */
+  var SRC='https://angkahoky187-crypto.github.io/MASTER/musik.mp3', KUNCI='wb_musik_mut', mut=false, bunyi=false;
+  try{mut=localStorage.getItem(KUNCI)==='1';}catch(e){}
+  var au=new Audio(SRC); au.loop=true; au.preload='auto'; au.setAttribute('playsinline','');
+  var btn=document.getElementById('musBtnM');
+  function ikon(){ btn.innerHTML=(bunyi&&!mut)?'&#128266;':'&#128263;'; }
+  function nyalakan(){ try{au.muted=false;au.volume=1;var p=au.play();if(p&&p.catch)p.catch(function(){});}catch(e){} }
+  /* jalan dulu tanpa suara, bersuara di ketukan pertama */
+  if(!mut){ try{au.muted=true;var p0=au.play();if(p0&&p0.catch)p0.catch(function(){});}catch(e){} }
+  var EVT=['click','touchend','pointerup','keydown'];
+  function picu(e){
+    if(mut) return;
+    if(e&&e.target===btn) return;
+    nyalakan();
+    setTimeout(function(){ if(!au.paused&&!au.muted){ bunyi=true; ikon(); EVT.forEach(function(n){document.removeEventListener(n,picu,true);}); tapOK=true; } },500);
+  }
+  var tapOK=false;
+  EVT.forEach(function(n){document.addEventListener(n,picu,true);});
+  btn.addEventListener('click',function(){
+    mut=!mut;
+    try{localStorage.setItem(KUNCI,mut?'1':'0');}catch(x){}
+    if(mut){ try{au.pause();}catch(x){} } else { nyalakan(); }
+    bunyi=!mut; ikon();
+  });
+  /* pesan dari blog di dalam bingkai: ketukan pertama = musik bersuara; ketuk 3x "Semua bisa jadi master" = tombol mut muncul/sembunyi (aturan admin) */
+  var ASAL=new URL(BLOG_URL).origin;
+  window.addEventListener('message',function(e){
+    if(e.origin!==ASAL||!e.data||typeof e.data!=='object') return;
+    if(e.data.wb==='tap'){ if(!tapOK) picu(); }
+    else if(e.data.wb==='mode'){
+      try{ localStorage.setItem('wb_web',e.data.web?'1':'0'); }catch(x){}
+      document.querySelector('meta[name=viewport]').setAttribute('content',e.data.web?'width=1100':'width=device-width, initial-scale=1, viewport-fit=cover');
+    }
+    else if(e.data.wb==='musik-toggle'){ btn.style.display=(btn.style.display==='none')?'block':'none'; }
+  });
+  /* musik berhenti sendiri saat halaman tidak terlihat (pindah aplikasi/tab, layar mati), lanjut lagi saat dibuka kembali */
+  document.addEventListener('visibilitychange',function(){
+    if(document.hidden){ try{au.pause();}catch(e){} return; }
+    if(mut) return;
+    if(bunyi){ nyalakan(); }
+    else{ try{au.muted=true;var pv=au.play();if(pv&&pv.catch)pv.catch(function(){});}catch(e){} }
+  });
+  window.addEventListener('pagehide',function(){ try{au.pause();}catch(e){} });
+  ikon();
+})();
+</script>
+</body>
+</html>
