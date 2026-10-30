@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SCENANGKA - Redirect to Blog</title>
+<meta http-equiv="refresh" content="3; url=https://scenangka.wordpress.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:#050508;color:#fff;font-family:'Inter',sans-serif;height:100vh;overflow:hidden;display:flex;align-items:center;justify-content:center}
+  #stars{position:fixed;inset:0;z-index:0}
+  .star{position:absolute;background:white;border-radius:50%;animation:twinkle var(--d) infinite ease-in-out}
+  @keyframes twinkle{0%,100%{opacity:0.2;transform:scale(1)}50%{opacity:1;transform:scale(1.5)}}
+  .container{position:relative;z-index:2;text-align:center;padding:20px;max-width:500px}
+  h1{font-family:'Playfair Display',serif;font-size:3rem;letter-spacing:4px;text-shadow:0 0 20px rgba(255,255,255,0.8);animation:glow 2.5s infinite alternate;margin-bottom:10px}
+  @keyframes glow{from{text-shadow:0 0 20px #fff}to{text-shadow:0 0 40px #fff}}
+  .sub{font-size:1rem;opacity:0.7;margin-bottom:30px;line-height:1.6}
+  .btn{display:inline-block;padding:14px 40px;background:white;color:black;font-weight:700;letter-spacing:2px;border-radius:50px;text-decoration:none;transition:0.3s}
+  .btn:hover{transform:scale(1.05)}
+  .music-btn{position:fixed;top:20px;right:20px;z-index:10;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);backdrop-filter:blur(10px);width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer}
+  .footer{position:fixed;bottom:20px;left:0;right:0;text-align:center;font-size:0.7rem;opacity:0.4;z-index:2}
+  .loading{margin-top:20px;font-size:0.8rem;opacity:0.5;animation:blink 1s infinite}
+  @keyframes blink{0%,100%{opacity:0.5}50%{opacity:1}}
+</style>
+</head>
+<body>
+<div id="stars"></div>
+<div class="music-btn" id="musicBtn" onclick="toggleMusic()">🔊</div>
+<audio id="bgMusic" loop preload="auto"><source src="https://cdn.pixabay.com/audio/2022/05/27/audio_1808fbf07a.mp3" type="audio/mpeg"></audio>
+
+<div class="container">
+  <h1>💫 SCENANGKA</h1>
+  <div class="sub">bukan soal dimana,<br>cuma tempat cari temen ngopi.</div>
+  <a href="https://scenangka.wordpress.com" class="btn">BUKA BLOG LANGSUNG</a>
+  <div class="loading">Mengalihkan ke blog dalam 3 detik...</div>
+</div>
+
+<div class="footer">angkahoky187-crypto.github.io/MASTER → scenangka.wordpress.com</div>
+
+<script>
+  const starsContainer=document.getElementById('stars');
+  for(let i=0;i<120;i++){const s=document.createElement('div');s.className='star';s.style.left=Math.random()*100+'%';s.style.top=Math.random()*100+'%';s.style.width=s.style.height=(Math.random()*2+1)+'px';s.style.setProperty('--d',(Math.random()*3+2)+'s');s.style.animationDelay=Math.random()*3+'s';starsContainer.appendChild(s);}
+  const music=document.getElementById('bgMusic');const btn=document.getElementById('musicBtn');let playing=false;
+  function toggleMusic(){if(playing){music.pause();btn.textContent='🔇';playing=false}else{music.play().then(()=>{btn.textContent='🔊';playing=true}).catch(()=>{})}}
+  document.body.addEventListener('click',()=>{if(!playing)toggleMusic()},{once:true});
+  // redirect JS backup
+  setTimeout(()=>{window.location.href='https://scenangka.wordpress.com'},3000);
+</script>
+</body>
+</html>
